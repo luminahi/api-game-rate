@@ -1,10 +1,10 @@
 import express from "express";
-import { AppDataSource } from "../database/data-source.js";
-import { Game } from "../database/entity/Game.js";
+import { gameRouter } from "./routes/game.js";
 
 const server = express();
+server.use(express.json({}));
 
-const dataSource = await AppDataSource.initialize();
+server.use("/api/v1/games", gameRouter);
 
 server.get("/", async (req, res) => {
     res.json({ msg: "message" });

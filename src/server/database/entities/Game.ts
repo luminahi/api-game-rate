@@ -5,9 +5,6 @@ export class Game {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 128, nullable: true })
+    @Column({ length: 128, unique: true })
     name: string;
-
-    @Column()
-    rating: number;
 }
