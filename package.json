@@ -13,7 +13,8 @@
         "express": "^4.19.2",
         "reflect-metadata": "^0.1.13",
         "sqlite3": "^5.0.2",
-        "typeorm": "0.3.20"
+        "typeorm": "0.3.20",
+        "yup": "^1.4.0"
     },
     "scripts": {
         "start": "node --import ./ts-node.js src/index.ts",
