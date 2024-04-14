@@ -1,7 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { IGame } from "./IGame.js";
 
 @Entity()
-export class Game {
+export class Game implements IGame {
     @PrimaryGeneratedColumn()
     id: number;
 
