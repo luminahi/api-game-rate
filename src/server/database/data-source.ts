@@ -1,5 +1,6 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
+import { Rating } from "./entities/Rating.js";
 import { User } from "./entities/User.js";
 import { Game } from "./entities/Game.js";
 
@@ -9,7 +10,7 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     dropSchema: true,
     logging: false,
-    entities: [User, Game],
+    entities: [Rating, User, Game],
     migrations: [],
     subscribers: [],
 });
