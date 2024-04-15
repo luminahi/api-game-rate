@@ -1,14 +1,9 @@
-import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    ManyToMany,
-    JoinTable,
-} from "typeorm";
-import { Game } from "./Game.js";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Rating } from "./Rating.js";
+import { IUser } from "./IUser.js";
 
 @Entity()
-export class User {
+export class User implements IUser {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -21,7 +16,6 @@ export class User {
     @Column()
     password: string;
 
-    @ManyToMany(() => Game)
-    @JoinTable()
-    rating: number;
+    @OneToMany(() => Rating, (rating) => rating.user)
+    ratings: Rating[];
 }
