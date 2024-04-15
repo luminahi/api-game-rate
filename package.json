@@ -21,6 +21,10 @@
     "scripts": {
         "start": "node --import ./ts-node.js src/index.ts",
         "typeorm": "typeorm-ts-node-esm",
-        "sync": "tsc && typeorm schema:sync --dataSource ./build/server/database/data-source.js"
+        "sync": "tsc && typeorm-ts-node-esm schema:sync --dataSource ./src/server/database/data-source.ts",
+        "migration:generate": "typeorm-ts-node-esm migration:generate ./src/server/database/migrations/create_game_rating --dataSource ./src/server/database/data-source.ts",
+        "migration:run": "typeorm-ts-node-esm migration:run --dataSource ./src/server/database/data-source.ts",
+        "migration:revert": "typeorm-ts-node-esm migration:revert --dataSource ./src/server/database/data-source.ts",
+        "migration:show": "typeorm-ts-node-esm migration:show --dataSource ./src/server/database/data-source.ts"
     }
 }
