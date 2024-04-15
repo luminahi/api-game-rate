@@ -7,10 +7,10 @@ import { Game } from "./entities/Game.js";
 export const AppDataSource = new DataSource({
     type: "sqlite",
     database: "database.sqlite",
-    synchronize: true,
+    synchronize: false,
     dropSchema: true,
     logging: false,
     entities: [Rating, User, Game],
-    migrations: [],
+    migrations: ["src/server/database/migrations/**/*.ts"],
     subscribers: [],
 });
