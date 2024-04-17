@@ -2,16 +2,20 @@ import { QueryFailedError } from "typeorm";
 import connection from "../../connection.js";
 import { Game } from "../../entities/Game.js";
 
-const getById = async (id: number) => {
+const getById = async (id: number): Promise<Game | null> => {
     try {
         const repository = connection.getRepository(Game);
 
-        const result = await repository.findOne({ where: { id } });
+        const result = await repository.findOne({
+            where: { id, isDeleted: false },
+        });
         return result;
     } catch (err: unknown) {
         if (err instanceof QueryFailedError) {
-            console.error("are you bobeando?");
+            console.error(err.message);
+            return null;
         }
+        return null;
     }
 };
 
