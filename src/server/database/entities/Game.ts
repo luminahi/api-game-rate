@@ -10,6 +10,9 @@ export class Game implements IGame {
     @Column({ length: 128, unique: true })
     name: string;
 
+    @Column()
+    isDeleted: boolean;
+
     @OneToMany(() => Rating, (rating) => rating.game)
     ratings: Rating[];
 }
