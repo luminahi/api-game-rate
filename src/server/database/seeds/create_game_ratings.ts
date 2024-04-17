@@ -60,9 +60,9 @@ async function seed() {
 }
 
 const games: Array<Partial<Game>> = [
-    { name: "Skyrim" },
-    { name: "Oblivion" },
-    { name: "Morrowind" },
+    { name: "Skyrim", isDeleted: false },
+    { name: "Oblivion", isDeleted: false },
+    { name: "Morrowind", isDeleted: false },
 ];
 
 const users: Array<Partial<User>> = [
