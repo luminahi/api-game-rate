@@ -8,7 +8,7 @@ export const AppDataSource = new DataSource({
     type: "sqlite",
     database: "database.sqlite",
     synchronize: false,
-    dropSchema: true,
+    dropSchema: false,
     logging: false,
     entities: [Rating, User, Game],
     migrations: ["src/server/database/migrations/**/*.ts"],
