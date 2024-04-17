@@ -15,11 +15,4 @@ const dataSource: DataSourceOptions = {
     subscribers: [],
 };
 
-export const DevDataSource = new DataSource(dataSource);
-
-export const TestDataSource = new DataSource({
-    ...dataSource,
-    database: ":memory:",
-});
-
-export const ProdDataSource = new DataSource(dataSource);
+export default new DataSource(dataSource);
