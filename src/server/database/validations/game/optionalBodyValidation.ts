@@ -2,10 +2,10 @@ import { Handler } from "express";
 import { ValidationError, object, string } from "yup";
 
 const gameSchema = object({
-    name: string().max(128).nonNullable().required(),
+    name: string().min(1).max(128).optional(),
 });
 
-const bodyValidation: Handler = async (req, res, next) => {
+const optionalBodyValidation: Handler = async (req, res, next) => {
     try {
         await gameSchema.validate(req.body, { abortEarly: false });
         return next();
@@ -16,4 +16,4 @@ const bodyValidation: Handler = async (req, res, next) => {
     }
 };
 
-export { bodyValidation };
+export { optionalBodyValidation };
