@@ -11,7 +11,7 @@ const dataSource: DataSourceOptions = {
     dropSchema: false,
     logging: true,
     entities: [Rating, User, Game],
-    migrations: ["src/server/database/migrations/**/*.ts"],
+    migrations: ["src/server/database/migrations/**/*.{ts|js}"],
     subscribers: [],
 };
 
