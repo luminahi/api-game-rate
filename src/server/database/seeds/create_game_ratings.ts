@@ -10,7 +10,7 @@ async function seed() {
     const userRepository = connection.getRepository(User);
     const ratingRepository = connection.getRepository(Rating);
 
-    const res = await connection.query(
+    await connection.query(
         `
         UPDATE sqlite_sequence 
             SET seq = 0 
@@ -60,9 +60,9 @@ async function seed() {
 }
 
 const games: Array<Partial<Game>> = [
-    { name: "Skyrim", isDeleted: false },
-    { name: "Oblivion", isDeleted: false },
-    { name: "Morrowind", isDeleted: false },
+    { name: "Skyrim" },
+    { name: "Oblivion" },
+    { name: "Morrowind" },
 ];
 
 const users: Array<Partial<User>> = [
