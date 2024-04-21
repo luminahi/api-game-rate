@@ -10,7 +10,7 @@ export class Game implements IGame {
     @Column({ length: 128, unique: true })
     name: string;
 
-    @Column()
+    @Column({ default: false })
     isDeleted: boolean;
 
     @OneToMany(() => Rating, (rating) => rating.game)

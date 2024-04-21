@@ -9,7 +9,6 @@ const create = async (game: IGame): Promise<Game | null> => {
 
         const newGame = new Game();
         newGame.name = game.name;
-        newGame.isDeleted = false;
 
         return await repository.save(newGame);
     } catch (err: unknown) {
