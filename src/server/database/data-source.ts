@@ -19,6 +19,7 @@ const testDataSource: DataSourceOptions = {
     ...devDataSource,
     database: ":memory:",
     synchronize: true,
+    logging: false,
 };
 
 function getDataSourceOptions() {
