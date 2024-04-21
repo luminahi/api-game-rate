@@ -5,7 +5,7 @@ import { Game } from "../../entities/Game.js";
 const deleteById = async (id: number): Promise<void> => {
     try {
         const repository = connection.getRepository(Game);
-        repository.update({ id }, { isDeleted: true });
+        await repository.update({ id }, { isDeleted: true });
     } catch (err: unknown) {
         if (err instanceof QueryFailedError) {
             console.error(err.message);
