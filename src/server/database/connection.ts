@@ -1,7 +1,7 @@
 import dataSource from "./data-source.js";
 
-const getConnection = async () => {
+async function getConnection() {
     return dataSource.initialize();
-};
+}
 
 export default await getConnection();
