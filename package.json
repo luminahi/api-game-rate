@@ -17,6 +17,7 @@
         "typescript": "^5.4.5"
     },
     "dependencies": {
+        "@jest/globals": "^29.7.0",
         "bcryptjs": "^2.4.3",
         "express": "^4.19.2",
         "reflect-metadata": "^0.1.13",
