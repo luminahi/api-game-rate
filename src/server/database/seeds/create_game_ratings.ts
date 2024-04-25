@@ -2,6 +2,7 @@ import connection from "../connection.js";
 import { Game } from "../entities/Game.js";
 import { Rating } from "../entities/Rating.js";
 import { User } from "../entities/User.js";
+import { hashPassword } from "../../shared/auth/passwordHash.js";
 
 async function seed() {
     connection.setOptions({ logging: true });
@@ -69,12 +70,12 @@ const users: Array<Partial<User>> = [
     {
         username: "alex",
         email: "alex@mail.com",
-        password: "00001111",
+        password: await hashPassword("00001111"),
     },
     {
         username: "sarah",
         email: "sarah@mail.com",
-        password: "11001111",
+        password: await hashPassword("11001111"),
     },
 ];
 
