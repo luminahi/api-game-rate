@@ -1,6 +1,7 @@
 import connection from "../../../src/server/database/connection.js";
 import { User } from "../../../src/server/database/entities/User.js";
 import { userService } from "../../../src/server/database/services/user/index.js";
+import { verifyPassword } from "../../../src/server/shared/auth/passwordHash.js";
 
 beforeAll(async () => {
     const repository = connection.getRepository(User);
@@ -49,10 +50,19 @@ describe("userService", () => {
 
         const savedUser = await userService.create(user);
 
+        if (!savedUser) fail();
+
         expect(savedUser).not.toBeNull();
-        expect(savedUser?.username).toBe("fourth");
-        expect(savedUser?.email).toBe("fourth@mail.com");
-        expect(savedUser?.password).toBe("44441111");
-        expect(savedUser?.id).toBeDefined();
+        expect(savedUser.username).toBe("fourth");
+        expect(savedUser.email).toBe("fourth@mail.com");
+        expect(savedUser.password).toBeDefined();
+        expect(savedUser.id).toBeDefined();
+
+        const passwordCheck = await verifyPassword(
+            user.password,
+            savedUser.password
+        );
+
+        expect(passwordCheck).toBe(true);
     });
 });
