@@ -7,13 +7,13 @@ export class User implements IUser {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ unique: true })
+    @Column({ length: 128 })
     username: string;
 
-    @Column({ length: 128 })
+    @Column({ unique: true, length: 128 })
     email: string;
 
-    @Column()
+    @Column({ length: 128 })
     password: string;
 
     @OneToMany(() => Rating, (rating) => rating.user)
