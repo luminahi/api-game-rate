@@ -6,4 +6,4 @@ tmp/
 temp/
 *.sqlite
 *.http
-
+.env
