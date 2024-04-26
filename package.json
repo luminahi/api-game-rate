@@ -28,7 +28,7 @@
         "yup": "^1.4.0"
     },
     "scripts": {
-        "start": "node --import ./ts-node.js src/index.ts",
+        "start": "node --env-file=.env --import ./ts-node.js src/index.ts",
         "typeorm": "typeorm-ts-node-esm",
         "sync": "tsc && typeorm-ts-node-esm schema:sync --dataSource ./src/server/database/data-source.ts",
         "migration:generate": "typeorm-ts-node-esm migration:generate ./src/server/database/migrations/create_game_rating --dataSource ./src/server/database/data-source.ts",
