@@ -2,7 +2,7 @@ import connection from "../connection.js";
 import { Game } from "../entities/Game.js";
 import { Rating } from "../entities/Rating.js";
 import { User } from "../entities/User.js";
-import { hashPassword } from "../../shared/auth/passwordHash.js";
+import { hashPassword } from "../../shared/util/passwordUtil.js";
 
 async function seed() {
     connection.setOptions({ logging: true });
