@@ -1,5 +1,5 @@
 import { Handler } from "express";
-import { verifyAccessToken } from "../util/jwtUtil.js";
+import { verifyAccessToken } from "../../util/jwtUtil.js";
 
 const accessControl: Handler = (req, res, next) => {
     if (!req.headers.authorization)
@@ -15,7 +15,7 @@ const accessControl: Handler = (req, res, next) => {
     if (!payload || !payload?.exp)
         return res.status(401).json({ error: "invalid token" });
 
-    if (new Date().getSeconds() > payload.exp * 1000)
+    if (Date.now() > payload.exp * 1000)
         return res.status(401).json({ error: "token expired" });
 
     next();

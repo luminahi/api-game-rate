@@ -1,6 +1,6 @@
 import { Handler } from "express";
 import { Schema, ValidationError, object, string } from "yup";
-import { IUser } from "../../entities/IUser.js";
+import { IUser } from "../../../../database/entities/IUser.js";
 
 const userSchema: Schema<IUser> = object({
     username: string().max(128).nonNullable().required(),
