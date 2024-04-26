@@ -2,8 +2,12 @@ import jwt from "jsonwebtoken";
 import { IUser } from "../../database/entities/IUser.js";
 
 const generateAccessToken = (data: Omit<IUser, "password">): string => {
+    const secret = process.env.JWT_SECRET;
+
     //TODO
-    const token = jwt.sign(data, "secret", {
+    if (!secret) return "";
+
+    const token = jwt.sign(data, secret, {
         algorithm: "HS256",
         expiresIn: "1d",
     });
@@ -12,11 +16,15 @@ const generateAccessToken = (data: Omit<IUser, "password">): string => {
 };
 
 const verifyAccessToken = (token: string): jwt.JwtPayload | null => {
-    //TODO
-    const decodedToken = jwt.verify(token, "secret");
-    if (typeof decodedToken === "string") return null;
+    const secret = process.env.JWT_SECRET;
 
-    return decodedToken;
+    //TODO
+    if (!secret) return null;
+
+    const result = jwt.verify(token, secret);
+    if (typeof result === "string") return null;
+
+    return result;
 };
 
 export { generateAccessToken, verifyAccessToken };
