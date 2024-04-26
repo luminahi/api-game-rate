@@ -7,9 +7,9 @@ import {
     deleteById,
     patchById,
 } from "../controllers/game/index.js";
-import { bodyValidation } from "../database/validations/game/bodyValidation.js";
-import { optionalBodyValidation } from "../database/validations/game/optionalBodyValidation.js";
-import { accessControl } from "../shared/middlewares/accessControl.js";
+import { bodyValidation } from "../shared/middlewares/validations/game/bodyValidation.js";
+import { optionalBodyValidation } from "../shared/middlewares/validations/game/optionalBodyValidation.js";
+import { accessControl } from "../shared/middlewares/auth/accessControl.js";
 
 const router = Router();
 
