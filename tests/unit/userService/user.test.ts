@@ -26,22 +26,34 @@ beforeAll(async () => {
 });
 
 describe("userService", () => {
-    it("count", async () => {
+    it("counts the number of users", async () => {
         const userCount = await userService.count();
 
-        expect(userCount).not.toBeUndefined();
+        expect(userCount).toBeDefined();
         expect(userCount).toBe(3);
     });
 
     it("get one user by id", async () => {
         const user = await userService.getById(1);
 
-        expect(user).not.toBeNull();
+        if (!user) fail();
+
         expect(user).toBeInstanceOf(User);
-        expect(user?.id).toBe(1);
+        expect(user.username).toBe("lima alex");
+        expect(user.id).toBe(1);
     });
 
-    it("creates a entry", async () => {
+    it("get one user by email", async () => {
+        const user = await userService.getByEmail("sarah@mail.com");
+
+        if (!user) fail();
+
+        expect(user).toBeInstanceOf(User);
+        expect(user.username).toBe("sarah sousa");
+        expect(user.email).toBe("sarah@mail.com");
+    });
+
+    it("creates a user", async () => {
         const user = new User();
 
         user.username = "fourth";
@@ -52,7 +64,6 @@ describe("userService", () => {
 
         if (!savedUser) fail();
 
-        expect(savedUser).not.toBeNull();
         expect(savedUser.username).toBe("fourth");
         expect(savedUser.email).toBe("fourth@mail.com");
         expect(savedUser.password).toBeDefined();
@@ -61,6 +72,31 @@ describe("userService", () => {
         const passwordCheck = await verifyPassword(
             user.password,
             savedUser.password
+        );
+
+        expect(passwordCheck).toBe(true);
+    });
+
+    it("updates a user by id", async () => {
+        const id = 1;
+        const user = new User();
+        user.email = "updarius@mail.com";
+        user.username = "up darius";
+        user.password = "55550000";
+
+        await userService.updateById(id, user);
+        const updatedUser = await userService.getById(id);
+
+        if (!updatedUser) fail();
+
+        expect(updatedUser).toBeInstanceOf(User);
+        expect(updatedUser.username).toBe("up darius");
+        expect(updatedUser.email).toBe("updarius@mail.com");
+        expect(updatedUser.id).toBe(1);
+
+        const passwordCheck = await verifyPassword(
+            "55550000",
+            updatedUser.password
         );
 
         expect(passwordCheck).toBe(true);
