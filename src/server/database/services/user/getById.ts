@@ -9,6 +9,7 @@ const getById = async (id: number): Promise<User | null> => {
         const result = await repository.findOne({
             where: { id },
         });
+
         return result;
     } catch (err: unknown) {
         if (err instanceof QueryFailedError) {
