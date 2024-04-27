@@ -1,13 +1,14 @@
 import jwt from "jsonwebtoken";
 import { IUser } from "../../database/entities/IUser.js";
 
-const generateAccessToken = (data: Omit<IUser, "password">): string => {
+const generateAccessToken = (data: IUser): string => {
     const secret = process.env.JWT_SECRET;
-
     //TODO
+
     if (!secret) return "";
 
-    const token = jwt.sign(data, secret, {
+    const { username, email } = data;
+    const token = jwt.sign({ username, email }, secret, {
         algorithm: "HS256",
         expiresIn: "1d",
     });
