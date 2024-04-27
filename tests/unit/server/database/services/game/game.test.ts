@@ -1,6 +1,6 @@
-import { gameService } from "../../../src/server/database/services/game/index.js";
-import { Game } from "../../../src/server/database/entities/Game.js";
-import connection from "../../../src/server/database/connection.js";
+import { gameService } from "../../../../../../src/server/database/services/game/index.js";
+import { Game } from "../../../../../../src/server/database/entities/Game.js";
+import connection from "../../../../../../src/server/database/connection.js";
 
 beforeAll(async () => {
     const repository = connection.getRepository(Game);

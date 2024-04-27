@@ -1,7 +1,7 @@
-import connection from "../../../src/server/database/connection.js";
-import { User } from "../../../src/server/database/entities/User.js";
-import { userService } from "../../../src/server/database/services/user/index.js";
-import { verifyPassword } from "../../../src/server/shared/util/passwordUtil.js";
+import connection from "../../../../../../src/server/database/connection.js";
+import { User } from "../../../../../../src/server/database/entities/User.js";
+import { userService } from "../../../../../../src/server/database/services/user/index.js";
+import { verifyPassword } from "../../../../../../src/server/shared/util/passwordUtil.js";
 
 beforeAll(async () => {
     const repository = connection.getRepository(User);
