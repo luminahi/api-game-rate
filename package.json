@@ -36,6 +36,6 @@
         "migration:revert": "typeorm-ts-node-esm migration:revert --dataSource ./src/server/database/data-source.ts",
         "migration:show": "typeorm-ts-node-esm migration:show --dataSource ./src/server/database/data-source.ts",
         "seed:run": "node --import ./ts-node.js ./src/server/database/seeds/create_game_ratings.ts",
-        "test": "NODE_OPTIONS=--experimental-vm-modules jest --verbose"
+        "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest --verbose"
     }
 }
