@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { IGame } from "./IGame.js";
-import { Rating } from "./Rating.js";
+import { Rating } from "../rating/Rating.js";
 
 @Entity()
 export class Game implements IGame {

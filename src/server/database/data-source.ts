@@ -1,8 +1,8 @@
 import "reflect-metadata";
 import { DataSource, DataSourceOptions } from "typeorm";
-import { Rating } from "./entities/Rating.js";
-import { User } from "./entities/User.js";
-import { Game } from "./entities/Game.js";
+import { Rating } from "./entities/rating/Rating.js";
+import { User } from "./entities/user/User.js";
+import { Game } from "./entities/game/Game.js";
 
 const devDataSource: DataSourceOptions = {
     type: "sqlite",

@@ -1,7 +1,7 @@
 import connection from "../connection.js";
-import { Game } from "../entities/Game.js";
-import { Rating } from "../entities/Rating.js";
-import { User } from "../entities/User.js";
+import { Game } from "../entities/game/Game.js";
+import { Rating } from "../entities/rating/Rating.js";
+import { User } from "../entities/user/User.js";
 import { hashPassword } from "../../shared/util/passwordUtil.js";
 
 async function seed() {

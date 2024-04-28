@@ -1,5 +1,5 @@
 import { Handler } from "express";
-import { Rating } from "../../database/entities/Rating.js";
+import { Rating } from "../../database/entities/rating/Rating.js";
 
 const create: Handler = (req, res) => {
     const rating = new Rating();

@@ -1,6 +1,6 @@
 import { QueryFailedError } from "typeorm";
 import connection from "../../connection.js";
-import { Rating } from "../../entities/Rating.js";
+import { Rating } from "../../entities/rating/Rating.js";
 
 const create = async (rating: Rating): Promise<Rating | null> => {
     try {

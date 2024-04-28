@@ -1,6 +1,6 @@
 import { QueryFailedError } from "typeorm";
 import connection from "../../connection.js";
-import { Rating } from "../../entities/Rating.js";
+import { Rating } from "../../entities/rating/Rating.js";
 
 const count = async (): Promise<number> => {
     try {

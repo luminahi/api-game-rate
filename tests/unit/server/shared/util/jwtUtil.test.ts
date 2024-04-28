@@ -1,4 +1,4 @@
-import { IUser } from "../../../../../src/server/database/entities/IUser.js";
+import { IUser } from "../../../../../src/server/database/entities/user/IUser.js";
 import { generateAccessToken } from "../../../../../src/server/shared/util/jwtUtil.js";
 import { verifyAccessToken } from "../../../../../src/server/shared/util/jwtUtil.js";
 

@@ -1,7 +1,7 @@
 import { QueryFailedError } from "typeorm";
 import connection from "../../connection.js";
-import { Game } from "../../entities/Game.js";
-import { IGame } from "../../entities/IGame.js";
+import { Game } from "../../entities/game/Game.js";
+import { IGame } from "../../entities/game/IGame.js";
 
 const create = async (game: IGame): Promise<Game | null> => {
     try {

@@ -1,6 +1,6 @@
 import { Handler } from "express";
 import { gameService } from "../../database/services/game/index.js";
-import { Game } from "../../database/entities/Game.js";
+import { Game } from "../../database/entities/game/Game.js";
 
 const updateById: Handler = async (req, res) => {
     const id = Number.parseInt(req.params.id);

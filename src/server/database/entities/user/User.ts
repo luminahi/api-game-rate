@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { Rating } from "./Rating.js";
+import { Rating } from "../rating/Rating.js";
 import { IUser } from "./IUser.js";
 
 @Entity()

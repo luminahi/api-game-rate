@@ -1,6 +1,6 @@
 import { QueryFailedError } from "typeorm";
 import connection from "../../connection.js";
-import { Game } from "../../entities/Game.js";
+import { Game } from "../../entities/game/Game.js";
 
 const getAll = async (): Promise<Game[]> => {
     try {

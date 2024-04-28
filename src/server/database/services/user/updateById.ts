@@ -1,6 +1,6 @@
 import { QueryFailedError } from "typeorm";
 import connection from "../../connection.js";
-import { User } from "../../entities/User.js";
+import { User } from "../../entities/user/User.js";
 import { hashPassword } from "../../../shared/util/passwordUtil.js";
 
 const updateById = async (id: number, user: User): Promise<void> => {

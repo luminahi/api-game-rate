@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { IUser } from "../../database/entities/IUser.js";
+import { IUser } from "../../database/entities/user/IUser.js";
 
 const generateAccessToken = (data: IUser): string => {
     const secret = process.env.JWT_SECRET;

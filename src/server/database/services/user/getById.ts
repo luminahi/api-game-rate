@@ -1,6 +1,6 @@
 import { QueryFailedError } from "typeorm";
 import connection from "../../connection.js";
-import { User } from "../../entities/User.js";
+import { User } from "../../entities/user/User.js";
 
 const getById = async (id: number): Promise<User | null> => {
     try {

@@ -1,6 +1,6 @@
 import { Handler } from "express";
 import { Schema, ValidationError, object, string } from "yup";
-import { IUser } from "../../../../database/entities/IUser.js";
+import { IUser } from "../../../../database/entities/user/IUser.js";
 
 const userSchema: Schema<Omit<IUser, "username">> = object({
     email: string().email().nonNullable().required(),

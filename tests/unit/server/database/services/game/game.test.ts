@@ -1,5 +1,5 @@
 import { gameService } from "../../../../../../src/server/database/services/game/index.js";
-import { Game } from "../../../../../../src/server/database/entities/Game.js";
+import { Game } from "../../../../../../src/server/database/entities/game/Game.js";
 import connection from "../../../../../../src/server/database/connection.js";
 
 beforeAll(async () => {
