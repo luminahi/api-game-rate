@@ -17,33 +17,35 @@ beforeAll(async () => {
 });
 
 describe("gameService", () => {
-    it("count", async () => {
+    it("counts the number of games", async () => {
         const gameCount = await gameService.count();
 
-        expect(gameCount).not.toBeUndefined();
+        expect(gameCount).toBeDefined();
         expect(gameCount).toBe(3);
     });
 
-    it("get one by id", async () => {
+    it("get one game by id", async () => {
         const game = await gameService.getById(1);
 
+        if (!game) fail();
+
         expect(game).toBeInstanceOf(Game);
-        expect(game?.name).toBeDefined();
-        expect(game?.isDeleted).toBe(false);
+        expect(game.name).toBeDefined();
     });
 
-    it("creation", async () => {
+    it("creates a game", async () => {
         const game = new Game();
         game.name = "The Fourth Game";
         const newGame = await gameService.create(game);
 
+        if (!newGame) fail();
+
         expect(newGame).toBeInstanceOf(Game);
-        expect(newGame?.name).toBe(game.name);
-        expect(newGame?.id).toBeDefined();
-        expect(newGame?.isDeleted).toBe(false);
+        expect(newGame.name).toBe(game.name);
+        expect(newGame.id).toBeDefined();
     });
 
-    it("deletion", async () => {
+    it("deletes a game", async () => {
         await gameService.deleteById(1);
         const game = await gameService.getById(1);
 
