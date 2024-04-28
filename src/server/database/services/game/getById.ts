@@ -7,6 +7,7 @@ const getById = async (id: number): Promise<Game | null> => {
         const repository = connection.getRepository(Game);
 
         const result = await repository.findOne({
+            select: ["name"],
             where: { id, isDeleted: false },
         });
         return result;
