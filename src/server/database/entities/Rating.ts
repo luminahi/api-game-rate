@@ -10,9 +10,9 @@ export class Rating {
     @Column()
     rating: number;
 
-    @ManyToOne(() => User, (user) => user.ratings)
+    @ManyToOne(() => User, (user) => user.ratings, { eager: true })
     user: User;
 
-    @ManyToOne(() => Game, (game) => game.ratings)
+    @ManyToOne(() => Game, (game) => game.ratings, { eager: true })
     game: Game;
 }
