@@ -3,8 +3,6 @@ import connection from "../../connection.js";
 import { Rating } from "../../entities/rating/Rating.js";
 import { gameService } from "../../services/game/index.js";
 import { userService } from "../../services/user/index.js";
-import { Game } from "../../entities/game/Game.js";
-import { User } from "../../entities/user/User.js";
 
 const create = async (
     rating: number,
@@ -14,17 +12,18 @@ const create = async (
     try {
         const repository = connection.getRepository(Rating);
 
+        const game = await gameService.getById(gameId);
+        const user = await userService.getById(userId);
+
+        if (!game || !user) return null;
+
         const newRating = new Rating();
-        newRating.game = (await gameService.getById(gameId)) as Game;
-        newRating.user = (await userService.getById(userId)) as User;
+        newRating.game = game;
+        newRating.user = user;
         newRating.rating = rating;
 
-        const exists = await repository.exists({
-            where: { game: newRating.game, user: newRating.user },
-        });
-
         //TODO
-        return exists ? null : await repository.save(newRating);
+        return await repository.save(newRating);
     } catch (err: unknown) {
         if (err instanceof QueryFailedError) {
             console.error(err.message);
