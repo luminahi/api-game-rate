@@ -1,11 +1,11 @@
 import { Handler } from "express";
-import { Rating } from "../../database/entities/rating/Rating.js";
+import { ratingService } from "../../database/services/rating/index.js";
 
-const create: Handler = (req, res) => {
-    const rating = new Rating();
-    console.log(rating);
+const create: Handler = async (req, res) => {
+    const { rating, gameId, userId } = req.body;
 
-    res.status(200).json({ msg: "not implemented" });
+    const newRating = await ratingService.create(rating, gameId, userId);
+    res.status(200).json({ newRating });
 };
 
 export { create };
