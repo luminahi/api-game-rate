@@ -8,7 +8,7 @@ const getById = async (id: number): Promise<Rating | null> => {
 
         const builder = repository.createQueryBuilder();
 
-        const [rating]: Rating[] = await builder
+        const result = await builder
             .select("rating")
             .addSelect("User.username", "user")
             .addSelect("Game.name", "game")
@@ -16,6 +16,8 @@ const getById = async (id: number): Promise<Rating | null> => {
             .leftJoin("user", "User", "userId = User.id")
             .where({ id })
             .execute();
+
+        const rating = repository.create(result)[0];
 
         return rating;
     } catch (err: unknown) {
