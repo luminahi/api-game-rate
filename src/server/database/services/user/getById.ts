@@ -7,6 +7,7 @@ const getById = async (id: number): Promise<User | null> => {
         const repository = connection.getRepository(User);
 
         const result = await repository.findOne({
+            select: ["id", "username"],
             where: { id },
         });
 
