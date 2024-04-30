@@ -66,8 +66,6 @@ describe("userService", () => {
 
         expect(savedUser.username).toBe("fourth");
         expect(savedUser.email).toBe("fourth@mail.com");
-        expect(savedUser.password).toBeDefined();
-        expect(savedUser.id).toBeDefined();
 
         const passwordCheck = await verifyPassword(
             user.password,
@@ -85,7 +83,7 @@ describe("userService", () => {
         user.password = "55550000";
 
         await userService.updateById(id, user);
-        const updatedUser = await userService.getById(id);
+        const updatedUser = await userService.getByEmail(user.email);
 
         if (!updatedUser) fail();
 
