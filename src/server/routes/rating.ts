@@ -1,9 +1,10 @@
 import { Router } from "express";
 import { create, getAll, getById } from "../controllers/rating/index.js";
+import { bodyValidation } from "../shared/middlewares/validations/rating/bodyValidation.js";
 
 const router = Router();
 
-router.post("/", create);
+router.post("/", bodyValidation, create);
 router.get("/", getAll);
 router.get("/:id", getById);
 
