@@ -1,3 +1,4 @@
+import { fail } from "assert";
 import connection from "../../../../../../src/server/database/connection.js";
 import { Game } from "../../../../../../src/server/database/entities/game/Game.js";
 import { Rating } from "../../../../../../src/server/database/entities/rating/Rating.js";
@@ -91,5 +92,34 @@ describe("ratingService", () => {
         expect(rating.rating).toBe(10);
         expect(rating.game.id).toBe(3);
         expect(rating.user.id).toBe(1);
+    });
+
+    it("changes the rating of a existing entry", async () => {
+        await ratingService.patchById(2, 0);
+        const rating = await ratingService.getById(2);
+
+        if (!rating) fail();
+
+        expect(rating.rating).toBe(0);
+        expect(rating.user).toBe("Sarah");
+        expect(rating.game).toBe("Second Game");
+    });
+
+    it("deletes a existing rating", async () => {
+        await ratingService.deleteById(1);
+        const rating = await ratingService.getById(1);
+
+        expect(rating).toBeNull();
+    });
+
+    it("deletes a inexistent rating", async () => {
+        await ratingService.deleteById(-1).catch(() => fail());
+    });
+
+    it("changes the rating of a non existing entry", async () => {
+        await ratingService.patchById(1, 2).catch(() => fail());
+        const rating = await ratingService.getById(1);
+
+        if (rating) fail();
     });
 });
