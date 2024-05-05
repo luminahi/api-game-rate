@@ -94,11 +94,7 @@ describe("ratingService", () => {
         expect(rating.user.id).toBe(1);
     });
 
-<<<<<<< HEAD
     it("updates the rating of a existing entry", async () => {
-=======
-    it("changes the rating of a existing entry", async () => {
->>>>>>> refs/remotes/origin/trunk
         await ratingService.patchById(2, 0);
         const rating = await ratingService.getById(2);
 
@@ -120,11 +116,7 @@ describe("ratingService", () => {
         await ratingService.deleteById(-1).catch(() => fail());
     });
 
-<<<<<<< HEAD
     it("updates the rating of a non existing entry", async () => {
-=======
-    it("changes the rating of a non existing entry", async () => {
->>>>>>> refs/remotes/origin/trunk
         await ratingService.patchById(1, 2).catch(() => fail());
         const rating = await ratingService.getById(1);
 
