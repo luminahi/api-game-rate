@@ -18,7 +18,6 @@
         "typescript": "^5.4.5"
     },
     "dependencies": {
-        "@jest/globals": "^29.7.0",
         "bcryptjs": "^2.4.3",
         "class-validator": "^0.14.1",
         "express": "^4.19.2",
