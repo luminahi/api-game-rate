@@ -19,7 +19,7 @@ const getById = async (id: number): Promise<Rating | null> => {
 
         const rating = repository.create(result)[0];
 
-        return rating;
+        return rating || null;
     } catch (err: unknown) {
         if (err instanceof QueryFailedError) {
             console.error(err.message);
