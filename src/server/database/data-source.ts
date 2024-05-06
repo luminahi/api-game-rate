@@ -3,15 +3,19 @@ import { DataSource, DataSourceOptions } from "typeorm";
 import { Rating } from "./entities/rating/Rating.js";
 import { User } from "./entities/user/User.js";
 import { Game } from "./entities/game/Game.js";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const getCurrentPath = () => path.dirname(fileURLToPath(import.meta.url));
 
 const devDataSource: DataSourceOptions = {
     type: "sqlite",
-    database: "database.sqlite",
+    database: path.resolve("database.sqlite"),
     synchronize: false,
     dropSchema: false,
     logging: true,
     entities: [Rating, User, Game],
-    migrations: ["src/server/database/migrations/**/*.{ts,js}"],
+    migrations: [path.join(getCurrentPath(), "migrations") + "/*.{ts,js}"],
     subscribers: [],
 };
 
