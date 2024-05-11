@@ -16,15 +16,16 @@ const create = async (
         const game = await gameService.getById(gameId);
         const user = await userService.getById(userId);
 
-        if (!game || !user)
+        if (!game || user.isFailure())
             return Result.asFailure(400, "game or user does not exist");
 
         const newRating = new Rating();
         newRating.game = game;
-        newRating.user = user;
+        newRating.user = user.unwrap();
         newRating.rating = rating;
 
         const result = await repository.save(newRating);
+        if (!result) return Result.asFailure(500, "could not be saved");
 
         return Result.wrap(result);
     } catch (err: unknown) {
