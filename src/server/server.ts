@@ -12,7 +12,7 @@ server.use("/api/v1/games", accessControl, gameRouter);
 server.use("/api/v1/ratings", ratingRouter);
 server.use("/auth", userRouter);
 
-server.use("/api/v1/", errorHandler);
+server.use("/", errorHandler);
 
 server.get("/", async (req, res) => {
     res.json({ msg: "index" });
