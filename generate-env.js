@@ -6,7 +6,7 @@ import path from "path";
 
 const settings = {
     port: "3000",
-    host: "localhost",
+    hostname: "localhost",
     node_env: "development",
     jwt_secret: randomBytes(32).toString("base64"),
 };
@@ -24,7 +24,7 @@ const generateEnv = (args) => {
         fd = fs.openSync(filePath, "w");
 
         lines.forEach((line) => {
-            fs.writeFileSync(fd, `${line[0]}="${line[1]}"\n`);
+            fs.writeFileSync(fd, `${line[0].toUpperCase()}="${line[1]}"\n`);
         });
     } catch (err) {
         if (err instanceof Error) console.error(err.message);
