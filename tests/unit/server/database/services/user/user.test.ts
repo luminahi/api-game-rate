@@ -2,6 +2,7 @@ import connection from "../../../../../../src/server/database/connection.js";
 import { User } from "../../../../../../src/server/database/entities/user/User.js";
 import { userService } from "../../../../../../src/server/database/services/user/index.js";
 import { verifyPassword } from "../../../../../../src/server/shared/util/passwordUtil.js";
+import { fail } from "assert";
 
 beforeAll(async () => {
     const repository = connection.getRepository(User);
@@ -27,14 +28,16 @@ beforeAll(async () => {
 
 describe("userService", () => {
     it("counts the number of users", async () => {
-        const userCount = await userService.count();
+        const result = await userService.count();
+        const count = result.unwrap();
 
-        expect(userCount).toBeDefined();
-        expect(userCount).toBe(3);
+        expect(count).toBeDefined();
+        expect(count).toBe(3);
     });
 
     it("get one user by id", async () => {
-        const user = await userService.getById(1);
+        const result = await userService.getById(1);
+        const user = result.unwrap();
 
         if (!user) fail();
 
@@ -44,7 +47,8 @@ describe("userService", () => {
     });
 
     it("get one user by email", async () => {
-        const user = await userService.getByEmail("sarah@mail.com");
+        const result = await userService.getByEmail("sarah@mail.com");
+        const user = result.unwrap();
 
         if (!user) fail();
 
@@ -55,12 +59,12 @@ describe("userService", () => {
 
     it("creates a user", async () => {
         const user = new User();
-
         user.username = "fourth";
         user.email = "fourth@mail.com";
         user.password = "44441111";
 
-        const savedUser = await userService.create(user);
+        const result = await userService.create(user);
+        const savedUser = result.unwrap();
 
         if (!savedUser) fail();
 
@@ -82,8 +86,11 @@ describe("userService", () => {
         user.username = "up darius";
         user.password = "55550000";
 
-        await userService.updateById(id, user);
-        const updatedUser = await userService.getByEmail(user.email);
+        const updateResult = await userService.updateById(id, user);
+        expect(updateResult.unwrap()).toBe(1);
+
+        const getResult = await userService.getByEmail(user.email);
+        const updatedUser = getResult.unwrap();
 
         if (!updatedUser) fail();
 
