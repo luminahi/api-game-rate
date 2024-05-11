@@ -28,7 +28,7 @@ class Result<T> {
         return new Result(null, errCode, errMessage);
     }
 
-    public unwrap(): T {
+    public unwrap(): NonNullable<T> {
         if (this.value) return this.value;
         throw new Error("value is not present");
     }
