@@ -2,17 +2,21 @@
  *
  */
 class Result<T> {
-    public readonly value: T;
+    public readonly value: T | null;
+    public readonly errCode?: number;
+    public readonly errMessage?: string;
 
-    private constructor(value: T) {
+    private constructor(
+        value: T | null,
+        errCode?: number,
+        errMessage?: string
+    ) {
         this.value = value;
+        this.errCode = errCode;
+        this.errMessage = errMessage;
     }
 
-    public get(): T {
-        return this.value;
-    }
-
-    public isError(): boolean {
+    public isFailure(): boolean {
         return this.value ? false : true;
     }
 
@@ -20,11 +24,16 @@ class Result<T> {
         return this.value ? true : false;
     }
 
-    public static asError(): Result<null> {
-        return new Result(null);
+    public static asFailure(errCode: number, errMessage: string): Result<null> {
+        return new Result(null, errCode, errMessage);
     }
 
-    public static asSuccess(value: unknown): Result<unknown> {
+    public unwrap(): T {
+        if (this.value) return this.value;
+        throw new Error("value is not present");
+    }
+
+    public static wrap<S>(value: S): Result<S> {
         return new Result(value);
     }
 }
