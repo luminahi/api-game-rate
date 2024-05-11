@@ -61,13 +61,15 @@ beforeAll(async () => {
 
 describe("ratingService", () => {
     it("counts the number of ratings", async () => {
-        const ratingCount = await ratingService.count();
+        const result = await ratingService.count();
+        const ratingCount = result.unwrap();
 
         expect(ratingCount).toBe(3);
     });
 
     it("gets one rating by id", async () => {
-        const rating = await ratingService.getById(1);
+        const result = await ratingService.getById(1);
+        const rating = result.unwrap();
 
         if (!rating) fail();
 
@@ -77,13 +79,15 @@ describe("ratingService", () => {
     });
 
     it("get all available ratings", async () => {
-        const ratings = await ratingService.getAll();
+        const result = await ratingService.getAll();
+        const ratings = result.unwrap();
 
         expect(ratings).toHaveLength(3);
     });
 
     it("creates a rating", async () => {
-        const rating = await ratingService.create(10, 3, 1);
+        const result = await ratingService.create(10, 3, 1);
+        const rating = result.unwrap();
 
         if (!rating) fail();
 
@@ -95,8 +99,13 @@ describe("ratingService", () => {
     });
 
     it("updates the rating of a existing entry", async () => {
-        await ratingService.patchById(2, 0);
-        const rating = await ratingService.getById(2);
+        const patchResult = await ratingService.patchById(2, 0);
+        const affected = patchResult.unwrap();
+
+        if (!affected) fail();
+
+        const getResult = await ratingService.getById(2);
+        const rating = getResult.unwrap();
 
         if (!rating) fail();
 
@@ -106,20 +115,30 @@ describe("ratingService", () => {
     });
 
     it("deletes a existing rating", async () => {
-        await ratingService.deleteById(1);
-        const rating = await ratingService.getById(1);
+        const deleteResult = await ratingService.deleteById(1);
+        const affected = deleteResult.unwrap();
 
-        expect(rating).toBeNull();
+        if (!affected) fail();
+
+        const result = await ratingService.getById(1);
+        expect(result.unwrap).toThrow();
     });
 
     it("deletes a inexistent rating", async () => {
-        await ratingService.deleteById(-1).catch(() => fail());
+        const result = await ratingService.deleteById(-1).catch(() => fail());
+
+        expect(result.isFailure()).toBe(true);
     });
 
     it("updates the rating of a non existing entry", async () => {
-        await ratingService.patchById(1, 2).catch(() => fail());
-        const rating = await ratingService.getById(1);
+        const patchResult = await ratingService
+            .patchById(1, 2)
+            .catch(() => fail());
 
-        if (rating) fail();
+        expect(patchResult.unwrap).toThrow();
+
+        const getResult = await ratingService.getById(1);
+
+        expect(getResult.unwrap).toThrow();
     });
 });
