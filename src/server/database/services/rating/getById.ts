@@ -1,14 +1,14 @@
 import { QueryFailedError } from "typeorm";
 import connection from "../../connection.js";
 import { Rating } from "../../entities/rating/Rating.js";
+import { Result } from "../../../shared/util/Result.js";
 
-const getById = async (id: number): Promise<Rating | null> => {
+const getById = async (id: number): Promise<Result<Rating | null>> => {
     try {
         const repository = connection.getRepository(Rating);
-
         const builder = repository.createQueryBuilder();
 
-        const result = await builder
+        const queryResult = await builder
             .select("rating")
             .addSelect("User.username", "user")
             .addSelect("Game.name", "game")
@@ -17,15 +17,19 @@ const getById = async (id: number): Promise<Rating | null> => {
             .where({ id })
             .execute();
 
-        const rating = repository.create(result)[0];
+        const rating = repository.create(queryResult)[0];
 
-        return rating || null;
+        if (!rating)
+            return Result.asFailure(404, `element with id '${id}' not found`);
+
+        return Result.wrap(rating);
     } catch (err: unknown) {
         if (err instanceof QueryFailedError) {
             console.error(err.message);
+            return Result.asFailure(500, err.message);
         }
 
-        return null;
+        return Result.asFailure(500, "internal error");
     }
 };
 
