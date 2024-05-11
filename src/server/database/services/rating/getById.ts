@@ -20,7 +20,7 @@ const getById = async (id: number): Promise<Result<Rating | null>> => {
         const rating = repository.create(queryResult)[0];
 
         if (!rating)
-            return Result.asFailure(404, `element with id '${id}' not found`);
+            return Result.asFailure(404, `rating with id '${id}' not found`);
 
         return Result.wrap(rating);
     } catch (err: unknown) {
