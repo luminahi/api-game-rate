@@ -16,7 +16,7 @@ const getAll = async (): Promise<Result<Rating[] | null>> => {
             .leftJoin("user", "User", "userId = User.id")
             .execute();
 
-        if (!ratings) return Result.asFailure(404, "there is no elements");
+        if (!ratings) throw new Error();
 
         return Result.wrap(ratings);
     } catch (err: unknown) {
