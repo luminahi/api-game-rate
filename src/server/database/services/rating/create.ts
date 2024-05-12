@@ -16,11 +16,11 @@ const create = async (
         const game = await gameService.getById(gameId);
         const user = await userService.getById(userId);
 
-        if (!game || user.isFailure())
+        if (game.isFailure() || user.isFailure())
             return Result.asFailure(400, "game or user does not exist");
 
         const newRating = new Rating();
-        newRating.game = game;
+        newRating.game = game.unwrap();
         newRating.user = user.unwrap();
         newRating.rating = rating;
 
