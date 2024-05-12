@@ -12,7 +12,7 @@ const patchById = async (
 
         const { affected } = await repository.update({ id }, { rating });
         if (!affected)
-            return Result.asFailure(400, `element ${id} could not be patched`);
+            return Result.asFailure(400, `rating ${id} could not be patched`);
 
         return Result.wrap(affected);
     } catch (err: unknown) {

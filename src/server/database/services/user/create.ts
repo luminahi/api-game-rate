@@ -14,7 +14,7 @@ const create = async (user: User): Promise<Result<User | null>> => {
         newUser.password = await hashPassword(user.password);
 
         const result = await repository.save(newUser);
-        if (!result) return Result.asFailure(500, "could not be saved");
+        if (!result) return Result.asFailure(500, "user could not be saved");
 
         return Result.wrap(result);
     } catch (err: unknown) {
