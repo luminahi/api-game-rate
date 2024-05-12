@@ -10,7 +10,7 @@ const count = async (): Promise<Result<number | null>> => {
         const count = await repository.count();
 
         if (typeof count != "number")
-            return Result.asFailure(500, "could not be counted");
+            return Result.asFailure(500, "rating could not be counted");
 
         return Result.wrap(count);
     } catch (err: unknown) {
