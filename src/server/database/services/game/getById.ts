@@ -1,8 +1,9 @@
 import { QueryFailedError } from "typeorm";
 import connection from "../../connection.js";
 import { Game } from "../../entities/game/Game.js";
+import { Result } from "../../../shared/util/Result.js";
 
-const getById = async (id: number): Promise<Game | null> => {
+const getById = async (id: number): Promise<Result<Game | null>> => {
     try {
         const repository = connection.getRepository(Game);
 
@@ -11,13 +12,17 @@ const getById = async (id: number): Promise<Game | null> => {
             where: { id, isDeleted: false },
         });
 
-        return result;
+        if (!result)
+            return Result.asFailure(404, `game with id '${id}' not found`);
+
+        return Result.wrap(result);
     } catch (err: unknown) {
         if (err instanceof QueryFailedError) {
             console.error(err.message);
-            return null;
+            return Result.asFailure(500, err.message);
         }
-        return null;
+
+        return Result.asFailure(500, "internal error");
     }
 };
 
