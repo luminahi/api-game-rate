@@ -1,6 +1,7 @@
 import { gameService } from "../../../../../../src/server/database/services/game/index.js";
 import { Game } from "../../../../../../src/server/database/entities/game/Game.js";
 import connection from "../../../../../../src/server/database/connection.js";
+import { fail } from "assert";
 
 beforeAll(async () => {
     const repository = connection.getRepository(Game);
@@ -18,14 +19,16 @@ beforeAll(async () => {
 
 describe("gameService", () => {
     it("counts the number of games", async () => {
-        const gameCount = await gameService.count();
+        const result = await gameService.count();
+        const gameCount = result.unwrap();
 
         expect(gameCount).toBeDefined();
         expect(gameCount).toBe(3);
     });
 
-    it("get one game by id", async () => {
-        const game = await gameService.getById(1);
+    it("gets one game by id", async () => {
+        const result = await gameService.getById(1);
+        const game = result.unwrap();
 
         if (!game) fail();
 
@@ -36,7 +39,8 @@ describe("gameService", () => {
     it("creates a game", async () => {
         const game = new Game();
         game.name = "The Fourth Game";
-        const newGame = await gameService.create(game);
+        const result = await gameService.create(game);
+        const newGame = result.unwrap();
 
         if (!newGame) fail();
 
@@ -46,9 +50,12 @@ describe("gameService", () => {
     });
 
     it("deletes a game", async () => {
-        await gameService.deleteById(1);
-        const game = await gameService.getById(1);
+        const deleteResult = await gameService.deleteById(1);
+        const affected = deleteResult.unwrap();
 
-        expect(game).toBeNull();
+        if (!affected) fail();
+
+        const getResult = await gameService.getById(1);
+        expect(getResult.unwrap).toThrow();
     });
 });
