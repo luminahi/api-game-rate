@@ -1,14 +1,13 @@
 import { Handler } from "express";
 import { gameService } from "../../database/services/game/index.js";
 
-const deleteById: Handler = async (req, res) => {
+const deleteById: Handler = async (req, res, next) => {
     const id = Number.parseInt(req.params.id);
-    if (!id)
-        return res.status(400).json({ error: `invalid id: ${req.params.id}` });
+    const result = await gameService.deleteById(id);
 
-    await gameService.deleteById(id);
+    if (result.isFailure()) return next(result);
 
-    res.status(204).send();
+    return res.status(204).json();
 };
 
 export { deleteById };

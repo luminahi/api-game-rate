@@ -1,15 +1,13 @@
 import { Handler } from "express";
 import { gameService } from "../../database/services/game/index.js";
 
-const getById: Handler = async (req, res) => {
+const getById: Handler = async (req, res, next) => {
     const id = Number.parseInt(req.params.id);
-    if (!id)
-        return res.status(400).json({ error: `invalid id: ${req.params.id}` });
+    const result = await gameService.getById(id);
 
-    const game = await gameService.getById(id);
-    if (!game) return res.status(404).json({ error: "not found" });
+    if (result.isFailure()) return next(result);
 
-    return res.status(200).json({ game });
+    return res.status(200).json({ game: result.unwrap() });
 };
 
 export { getById };
