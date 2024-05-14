@@ -1,5 +1,5 @@
 import { ErrorRequestHandler } from "express";
-import { Result } from "../../util/Result";
+import { Result } from "../../util/Result.js";
 
 const errorHandler: ErrorRequestHandler = (
     err: Result<null>,
