@@ -5,7 +5,7 @@ import { Rating } from "../../../../../../src/server/database/entities/rating/Ra
 import { User } from "../../../../../../src/server/database/entities/user/User.js";
 import { ratingService } from "../../../../../../src/server/database/services/rating/index.js";
 
-beforeAll(async () => {
+beforeEach(async () => {
     await connection.synchronize(true);
 
     const ratingRepository = connection.getRepository(Rating);
@@ -85,12 +85,16 @@ describe("ratingService", () => {
         expect(ratings).toHaveLength(3);
     });
 
-    it("creates a rating", async () => {
-        const result = await ratingService.create(10, 3, 1);
-        const rating = result.unwrap();
+    it("creates a rating and counts", async () => {
+        const createResult = await ratingService.create(10, 3, 1);
+        const rating = createResult.unwrap();
 
         if (!rating) fail();
 
+        const countResult = await ratingService.count();
+        const count = countResult.unwrap();
+
+        expect(count).toBe(4);
         expect(rating.game).toBeInstanceOf(Game);
         expect(rating.user).toBeInstanceOf(User);
         expect(rating.rating).toBe(10);
@@ -114,19 +118,28 @@ describe("ratingService", () => {
         expect(rating.game).toBe("Second Game");
     });
 
-    it("deletes a existing rating", async () => {
+    it("deletes a existing rating and counts", async () => {
         const deleteResult = await ratingService.deleteById(1);
         const affected = deleteResult.unwrap();
 
         if (!affected) fail();
 
+        const countResult = await ratingService.count();
+        const count = countResult.unwrap();
+
         const result = await ratingService.getById(1);
+
+        expect(count).toBe(2);
         expect(result.unwrap).toThrow();
     });
 
-    it("deletes a inexistent rating", async () => {
+    it("deletes a inexistent rating and counts", async () => {
         const result = await ratingService.deleteById(-1).catch(() => fail());
 
+        const countResult = await ratingService.count();
+        const count = countResult.unwrap();
+
+        expect(count).toBe(3);
         expect(result.isFailure()).toBe(true);
     });
 

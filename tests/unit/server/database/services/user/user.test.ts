@@ -4,7 +4,8 @@ import { userService } from "../../../../../../src/server/database/services/user
 import { verifyPassword } from "../../../../../../src/server/shared/util/passwordUtil.js";
 import { fail } from "assert";
 
-beforeAll(async () => {
+beforeEach(async () => {
+    await connection.synchronize(true);
     const repository = connection.getRepository(User);
 
     const user1 = new User();
@@ -57,7 +58,7 @@ describe("userService", () => {
         expect(user.email).toBe("sarah@mail.com");
     });
 
-    it("creates a user", async () => {
+    it("creates a user and counts", async () => {
         const user = new User();
         user.username = "fourth";
         user.email = "fourth@mail.com";
@@ -68,6 +69,10 @@ describe("userService", () => {
 
         if (!savedUser) fail();
 
+        const countResult = await userService.count();
+        const count = countResult.unwrap();
+
+        expect(count).toBe(4);
         expect(savedUser.username).toBe("fourth");
         expect(savedUser.email).toBe("fourth@mail.com");
 
