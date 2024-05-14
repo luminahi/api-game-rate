@@ -1,17 +1,19 @@
 {
     "compilerOptions": {
         "lib": ["es2021"],
-        "target": "es2021",
-        "module": "es2022",
-        "moduleResolution": "node",
+        "target": "es2022",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
         "allowSyntheticDefaultImports": true,
-        "outDir": "./build",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "sourceMap": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        // "resolvePackageJsonImports": true,
+        "outDir": "./build",
+        "rootDir": "./src"
     },
     "include": ["src/**/*.ts"]
 }
