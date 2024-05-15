@@ -1,6 +1,7 @@
 import { IUser } from "../../../../../src/server/database/entities/user/IUser.js";
 import { generateAccessToken } from "../../../../../src/server/shared/util/jwtUtil.js";
 import { verifyAccessToken } from "../../../../../src/server/shared/util/jwtUtil.js";
+import { fail } from "assert";
 
 describe("jwtUtil", () => {
     it("is a valid token", () => {
