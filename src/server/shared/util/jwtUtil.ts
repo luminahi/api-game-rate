@@ -3,9 +3,8 @@ import { IUser } from "../../database/entities/user/IUser.js";
 
 const generateAccessToken = (data: IUser): string => {
     const secret = process.env.JWT_SECRET;
-    //TODO
 
-    if (!secret) return "";
+    if (!secret) throw new Error("secret is undefined");
 
     const { username, email } = data;
     const token = jwt.sign({ username, email }, secret, {
@@ -19,11 +18,10 @@ const generateAccessToken = (data: IUser): string => {
 const verifyAccessToken = (token: string): jwt.JwtPayload | null => {
     const secret = process.env.JWT_SECRET;
 
-    //TODO
-    if (!secret) return null;
+    if (!secret) throw new Error("secret is undefined");
 
     const result = jwt.verify(token, secret);
-    if (typeof result === "string") return null;
+    if (typeof result === "string") throw new Error(result);
 
     return result;
 };
