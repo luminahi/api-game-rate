@@ -23,6 +23,11 @@ const create = async (user: User): Promise<Result<User | null>> => {
             return Result.asFailure(500, err.message);
         }
 
+        if (err instanceof Error) {
+            console.error(err.message);
+            return Result.asFailure(500, err.message);
+        }
+
         return Result.asFailure(500, "internal error");
     }
 };

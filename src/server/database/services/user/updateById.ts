@@ -24,6 +24,11 @@ const updateById = async (
             return Result.asFailure(500, err.message);
         }
 
+        if (err instanceof Error) {
+            console.error(err.message);
+            throw err;
+        }
+
         return Result.asFailure(500, "internal error");
     }
 };
