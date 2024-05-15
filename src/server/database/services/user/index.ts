@@ -3,6 +3,7 @@ import { create } from "./create.js";
 import { getByEmail } from "./getByEmail.js";
 import { getById } from "./getById.js";
 import { updateById } from "./updateById.js";
+import { verifyUser } from "./verifyUser.js";
 
 const userService = {
     count,
@@ -10,6 +11,7 @@ const userService = {
     getById,
     updateById,
     getByEmail,
+    verifyUser,
 };
 
 export { userService };
