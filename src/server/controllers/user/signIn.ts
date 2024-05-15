@@ -1,5 +1,4 @@
 import { Handler } from "express";
-import { generateAccessToken } from "../../shared/util/jwtUtil.js";
 import { userService } from "../../database/services/user/index.js";
 
 const signIn: Handler = async (req, res, next) => {
@@ -9,12 +8,7 @@ const signIn: Handler = async (req, res, next) => {
 
     if (result.isFailure()) return next(result);
 
-    const token = generateAccessToken({
-        username: result.unwrap().username,
-        email,
-    });
-
-    return res.status(200).json({ token });
+    return res.status(200).json({ token: result.unwrap() });
 };
 
 export { signIn };
