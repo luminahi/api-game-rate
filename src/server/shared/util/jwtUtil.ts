@@ -15,7 +15,7 @@ const generateAccessToken = (data: IUser): string => {
     return token;
 };
 
-const verifyAccessToken = (token: string): jwt.JwtPayload | null => {
+const verifyAccessToken = (token: string): jwt.JwtPayload => {
     const secret = process.env.JWT_SECRET;
 
     if (!secret) throw new Error("secret is undefined");
