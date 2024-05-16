@@ -1,5 +1,5 @@
 import { Handler } from "express";
-import { verifyAccessToken } from "../../util/jwtUtil.js";
+import { verifyJwtToken } from "../../util/jwtUtil.js";
 
 const accessControl: Handler = (req, res, next) => {
     try {
@@ -11,7 +11,7 @@ const accessControl: Handler = (req, res, next) => {
         if (identifier !== "Bearer")
             return res.status(401).json({ error: "invalid token" });
 
-        const payload = verifyAccessToken(token);
+        const payload = verifyJwtToken(token);
 
         if (!payload || !payload?.exp)
             return res.status(401).json({ error: "invalid token" });

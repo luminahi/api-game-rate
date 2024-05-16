@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { IUser } from "../../database/entities/user/IUser.js";
 
-const generateAccessToken = (data: IUser): string => {
+const generateJwtToken = (data: IUser): string => {
     const secret = process.env.JWT_SECRET;
 
     if (!secret) throw new Error("secret is undefined");
@@ -15,7 +15,7 @@ const generateAccessToken = (data: IUser): string => {
     return token;
 };
 
-const verifyAccessToken = (token: string): jwt.JwtPayload => {
+const verifyJwtToken = (token: string): jwt.JwtPayload => {
     const secret = process.env.JWT_SECRET;
 
     if (!secret) throw new Error("secret is undefined");
@@ -26,4 +26,4 @@ const verifyAccessToken = (token: string): jwt.JwtPayload => {
     return result;
 };
 
-export { generateAccessToken, verifyAccessToken };
+export { generateJwtToken, verifyJwtToken };

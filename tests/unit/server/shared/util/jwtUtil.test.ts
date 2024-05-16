@@ -1,6 +1,6 @@
 import { IUser } from "../../../../../src/server/database/entities/user/IUser.js";
-import { generateAccessToken } from "../../../../../src/server/shared/util/jwtUtil.js";
-import { verifyAccessToken } from "../../../../../src/server/shared/util/jwtUtil.js";
+import { generateJwtToken } from "../../../../../src/server/shared/util/jwtUtil.js";
+import { verifyJwtToken } from "../../../../../src/server/shared/util/jwtUtil.js";
 import { fail } from "assert";
 
 describe("jwtUtil", () => {
@@ -10,7 +10,7 @@ describe("jwtUtil", () => {
             username: "george",
         };
 
-        const token = generateAccessToken(user);
+        const token = generateJwtToken(user);
 
         expect(token).toBeDefined();
         expect(token.split(".")).toHaveLength(3);
@@ -22,8 +22,8 @@ describe("jwtUtil", () => {
             username: "kasimir",
         };
 
-        const token = generateAccessToken(user);
-        const data = verifyAccessToken(token);
+        const token = generateJwtToken(user);
+        const data = verifyJwtToken(token);
 
         expect(data.email).toBe("kasimiro@mail.com");
         expect(data.username).toBe("kasimir");
@@ -41,8 +41,8 @@ describe("jwtUtil", () => {
             id: 404,
         };
 
-        const token = generateAccessToken(user);
-        const data = verifyAccessToken(token);
+        const token = generateJwtToken(user);
+        const data = verifyJwtToken(token);
 
         if (!data) fail();
 
@@ -62,7 +62,7 @@ describe("jwtUtil", () => {
         };
 
         expect(() => {
-            generateAccessToken(user);
+            generateJwtToken(user);
         }).toThrow();
 
         process.env.JWT_SECRET = aux;
@@ -74,13 +74,13 @@ describe("jwtUtil", () => {
             username: "george",
         };
 
-        const token = generateAccessToken(user);
+        const token = generateJwtToken(user);
 
         const aux = process.env.JWT_SECRET;
         process.env.JWT_SECRET = "";
 
         expect(() => {
-            verifyAccessToken(token);
+            verifyJwtToken(token);
         }).toThrow();
 
         process.env.JWT_SECRET = aux;
