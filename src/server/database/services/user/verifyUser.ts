@@ -1,12 +1,12 @@
 import { getByEmail } from "./getByEmail.js";
 import { Result } from "../../../shared/util/Result.js";
 import { verifyPassword } from "../../../shared/util/passwordUtil.js";
-import { generateAccessToken } from "../../../shared/util/jwtUtil.js";
+import { User } from "../../entities/user/User.js";
 
 const verifyUser = async (
     email: string,
     password: string
-): Promise<Result<string | null>> => {
+): Promise<Result<User | null>> => {
     const result = await getByEmail(email);
 
     if (result.isFailure())
@@ -20,12 +20,7 @@ const verifyUser = async (
     if (!isValidPassword)
         return Result.asFailure(401, "invalid email/password");
 
-    const token = generateAccessToken({
-        username: result.unwrap().username,
-        email,
-    });
-
-    return Result.wrap(token);
+    return result;
 };
 
 export { verifyUser };
