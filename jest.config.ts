@@ -17,7 +17,7 @@ const jestConfig: JestConfigWithTsJest = {
             },
         ],
     },
-    setupFiles: ["./unit/jest.setup.ts"],
+    setupFiles: ["./jest.setup.ts"],
     rootDir: "./tests/",
     cache: true,
 };
