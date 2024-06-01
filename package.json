@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "description": "Awesome project developed with TypeORM.",
     "type": "module",
+    "license": "MIT",
     "devDependencies": {
         "@types/bcryptjs": "^2.4.6",
         "@types/express": "^4.17.21",
