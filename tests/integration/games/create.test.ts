@@ -1,10 +1,7 @@
-import supertest from "supertest";
-import { server } from "../../../src/server/server.js";
+import { testServer } from "../testServer.js";
 import { Game } from "../../../src/server/database/entities/game/Game.js";
 import { userService } from "../../../src/server/database/services/user/index.js";
 import { User } from "../../../src/server/database/entities/user/User.js";
-
-const testServer = supertest(server);
 
 describe("game POST", () => {
     let accessToken = "";
