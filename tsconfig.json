@@ -13,7 +13,7 @@
         "skipLibCheck": true,
         // "resolvePackageJsonImports": true,
         "outDir": "./build",
-        "rootDir": "./src"
+        "rootDir": "."
     },
     "include": ["src/**/*.ts"]
 }
