@@ -1,23 +1,9 @@
 import { testServer } from "../testServer.js";
-import { getToken, signTester } from "../testSetup.js";
-import { Game } from "../../../src/server/database/entities/game/Game.js";
-import connection from "../../../src/server/database/connection.js";
+import { getToken, insertUser, insertGameData } from "../testSetup.js";
 
-beforeEach(async () => {
-    await connection.synchronize(true);
-    const repository = connection.getRepository(Game);
+beforeAll(async () => insertUser());
 
-    const game1 = new Game();
-    const game2 = new Game();
-    const game3 = new Game();
-
-    game1.name = "Dream Game";
-    game2.name = "Nightmare Game";
-    game3.name = "Wonder Game";
-
-    await signTester();
-    await repository.save([game1, game2, game3]);
-});
+beforeEach(async () => insertGameData());
 
 describe("game retrieval - one", () => {
     const accessToken = getToken();
@@ -31,7 +17,7 @@ describe("game retrieval - one", () => {
     });
 
     it("retrieves one user without auth", async () => {
-        const res = await testServer.get("/api/v1/games");
+        const res = await testServer.get("/api/v1/games/1");
 
         expect(res.status).toBe(401);
     });
