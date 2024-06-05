@@ -3,7 +3,7 @@ import { Game } from "../../../src/server/database/entities/game/Game.js";
 import { userService } from "../../../src/server/database/services/user/index.js";
 import { User } from "../../../src/server/database/entities/user/User.js";
 
-describe("game POST", () => {
+describe("game creation", () => {
     let accessToken = "";
 
     beforeAll(async () => {
