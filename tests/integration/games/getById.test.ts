@@ -11,14 +11,15 @@ describe("game retrieval - one", () => {
     it("retrieves one user", async () => {
         const res = await testServer
             .get("/api/v1/games/1")
-            .auth(accessToken, { type: "bearer" });
+            .auth(accessToken, { type: "bearer" })
+            .expect(200);
 
-        expect(res.status).toBe(200);
+        expect(res.body).toHaveProperty("game.id", 1);
     });
 
-    it("retrieves one user without auth", async () => {
-        const res = await testServer.get("/api/v1/games/1");
+    it("tries to retrieve one user without auth", async () => {
+        const res = await testServer.get("/api/v1/games/1").expect(401);
 
-        expect(res.status).toBe(401);
+        expect(res.body).toHaveProperty("error", "not authorized");
     });
 });
