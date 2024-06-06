@@ -3,13 +3,13 @@ import { Game } from "../../src/server/database/entities/game/Game.js";
 import { User } from "../../src/server/database/entities/user/User.js";
 import { userService } from "../../src/server/database/services/user/index.js";
 
-const user = {
+const testUser = {
     email: "test@mail.com",
     password: "10101010",
     username: "tester",
 } as User;
 
-const insertUser = async () => userService.create(user);
+const insertUser = async () => userService.create(testUser);
 
 const insertGameData = async () => {
     const repository = connection.getRepository(Game);
@@ -29,6 +29,6 @@ const insertGameData = async () => {
     await repository.save([game1, game2, game3]);
 };
 
-const getToken = () => userService.generateAccessToken(user);
+const getToken = () => userService.generateAccessToken(testUser);
 
-export { getToken, insertUser, insertGameData };
+export { getToken, insertUser, insertGameData, testUser };
