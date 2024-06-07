@@ -36,7 +36,7 @@ describe("userService", () => {
         expect(count).toBe(3);
     });
 
-    it("get one user by id", async () => {
+    it("retrieves one user by id", async () => {
         const result = await userService.getById(1);
         const user = result.unwrap();
 
@@ -47,7 +47,7 @@ describe("userService", () => {
         expect(user.id).toBe(1);
     });
 
-    it("get one user by email", async () => {
+    it("retrieves one user by email", async () => {
         const result = await userService.getByEmail("sarah@mail.com");
         const user = result.unwrap();
 
@@ -58,7 +58,7 @@ describe("userService", () => {
         expect(user.email).toBe("sarah@mail.com");
     });
 
-    it("creates a user and counts", async () => {
+    it("creates a user", async () => {
         const user = new User();
         user.username = "fourth";
         user.email = "fourth@mail.com";

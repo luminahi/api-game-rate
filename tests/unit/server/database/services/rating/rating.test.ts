@@ -67,7 +67,7 @@ describe("ratingService", () => {
         expect(ratingCount).toBe(3);
     });
 
-    it("gets one rating by id", async () => {
+    it("retrieves one rating by id", async () => {
         const result = await ratingService.getById(1);
         const rating = result.unwrap();
 
@@ -78,7 +78,7 @@ describe("ratingService", () => {
         expect(rating.user).toBe("Alex");
     });
 
-    it("get all available ratings", async () => {
+    it("retrieves all available ratings", async () => {
         const result = await ratingService.getAll();
         const ratings = result.unwrap();
 
@@ -133,7 +133,7 @@ describe("ratingService", () => {
         expect(result.unwrap).toThrow();
     });
 
-    it("deletes a inexistent rating and counts", async () => {
+    it("tries to delete a inexistent rating and counts", async () => {
         const result = await ratingService.deleteById(-1).catch(() => fail());
 
         const countResult = await ratingService.count();
@@ -143,7 +143,7 @@ describe("ratingService", () => {
         expect(result.isFailure()).toBe(true);
     });
 
-    it("updates the rating of a non existing entry", async () => {
+    it("tries to update the rating of a non existing entry", async () => {
         const patchResult = await ratingService
             .patchById(1, 2)
             .catch(() => fail());

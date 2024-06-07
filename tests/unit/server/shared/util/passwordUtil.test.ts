@@ -4,21 +4,21 @@ import {
 } from "../../../../../src/server/shared/util/passwordUtil.js";
 
 describe("passwordUtil", () => {
-    it("hash a password", async () => {
+    it("hashes a password", async () => {
         const hashedPassword = await hashPassword("my_cool_password");
 
         expect(typeof hashedPassword === "string").toBe(true);
         expect(hashedPassword.substring(0, 7)).toBe("$2a$10$");
     });
 
-    it("hash a empty password", async () => {
+    it("hashes a empty password", async () => {
         const hashedPassword = await hashPassword("");
 
         expect(typeof hashedPassword === "string").toBe(true);
         expect(hashedPassword.substring(0, 7)).toBe("$2a$10$");
     });
 
-    it("verify a valid password", async () => {
+    it("verifies a valid password", async () => {
         const password = "|__my$cool$pass$word__|";
 
         const hashedPassword = await hashPassword(password);
@@ -28,7 +28,7 @@ describe("passwordUtil", () => {
         expect(isValidPassword).toBe(true);
     });
 
-    it("verify a invalid password", async () => {
+    it("verifies a invalid password", async () => {
         const password = "|__my$cool$pass$word__|";
         const anotherPassword = "|__my$cool$pass$word_|";
 

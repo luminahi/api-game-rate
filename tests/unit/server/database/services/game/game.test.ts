@@ -27,7 +27,7 @@ describe("gameService", () => {
         expect(gameCount).toBe(3);
     });
 
-    it("gets one game by id", async () => {
+    it("retrieve one game by id", async () => {
         const result = await gameService.getById(1);
         const game = result.unwrap();
 
@@ -37,19 +37,19 @@ describe("gameService", () => {
         expect(game.name).toBeDefined();
     });
 
-    it("gets one game with a invalid id", async () => {
+    it("tries to retrieve one game with a invalid id", async () => {
         const result = await gameService.getById(-100);
         expect(result.unwrap).toThrow();
     });
 
-    it("gets all games", async () => {
+    it("retrieve all games", async () => {
         const result = await gameService.getAll();
         const games = result.unwrap();
 
         expect(games).toHaveLength(3);
     });
 
-    it("creates a game and counts", async () => {
+    it("insert a new game", async () => {
         const game = new Game();
         game.name = "The Fourth Game";
 
@@ -79,7 +79,7 @@ describe("gameService", () => {
         expect(createResult.unwrap).toThrow();
     });
 
-    it("deletes a game and counts", async () => {
+    it("delete one game", async () => {
         const deleteResult = await gameService.deleteById(1);
         const affected = deleteResult.unwrap();
 
@@ -126,7 +126,7 @@ describe("gameService", () => {
         expect(result.unwrap()).toBe(1);
     });
 
-    it("patch a inexistent game", async () => {
+    it("tries to patch a inexistent game", async () => {
         const game = new Game();
         game.name = "Update: The Game";
 
@@ -135,7 +135,7 @@ describe("gameService", () => {
         expect(result.unwrap).toThrow();
     });
 
-    it("update a inexistent game", async () => {
+    it("tries to update a inexistent game", async () => {
         const game = new Game();
         game.name = "Update: The Game";
 

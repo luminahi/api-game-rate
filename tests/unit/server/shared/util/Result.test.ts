@@ -7,7 +7,7 @@ interface User {
 }
 
 describe("Result", () => {
-    it("wrap a non-null object and return a success", () => {
+    it("wraps a non-null object and return a success", () => {
         const user: User = {
             name: "sarah",
             age: 19,
@@ -21,7 +21,7 @@ describe("Result", () => {
         expect(result.errCode).toBeUndefined();
     });
 
-    it("wrap a null object and return a failure", () => {
+    it("wraps a null object and return a failure", () => {
         const user: User = null as unknown as User;
 
         const result = Result.wrap<User>(user);
@@ -31,7 +31,7 @@ describe("Result", () => {
         expect(result.errCode).toBeUndefined();
     });
 
-    it("unwrap a non-null object", () => {
+    it("unwraps a non-null object", () => {
         const user: User = {
             name: "sarah",
             age: 19,
@@ -44,7 +44,7 @@ describe("Result", () => {
         expect(result.unwrap()).toEqual(user);
     });
 
-    it("unwrap a null object", () => {
+    it("unwraps a null object", () => {
         const user: User = null as unknown as User;
 
         const result = Result.wrap(user);
@@ -52,7 +52,7 @@ describe("Result", () => {
         expect(result.unwrap).toThrow();
     });
 
-    it("return a Result instance as a failure", () => {
+    it("returns a Result instance as a failure", () => {
         const result = Result.asFailure(500, "error message");
 
         expect(result.isFailure()).toBe(true);
