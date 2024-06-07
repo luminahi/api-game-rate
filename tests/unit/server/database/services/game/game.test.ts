@@ -1,21 +1,12 @@
 import { gameService } from "../../../../../../src/server/database/services/game/index.js";
 import { Game } from "../../../../../../src/server/database/entities/game/Game.js";
 import { fail } from "assert";
+import { insertGameData } from "../../../../../testSetup.js";
 import connection from "../../../../../../src/server/database/connection.js";
 
 beforeEach(async () => {
     await connection.synchronize(true);
-    const repository = connection.getRepository(Game);
-
-    const game1 = new Game();
-    const game2 = new Game();
-    const game3 = new Game();
-
-    game1.name = "Dream Game";
-    game2.name = "Nightmare Game";
-    game3.name = "Wonder Game";
-
-    await repository.save([game1, game2, game3]);
+    await insertGameData();
 });
 
 describe("gameService", () => {
@@ -49,7 +40,7 @@ describe("gameService", () => {
         expect(games).toHaveLength(3);
     });
 
-    it("insert a new game", async () => {
+    it("inserts a new game", async () => {
         const game = new Game();
         game.name = "The Fourth Game";
 

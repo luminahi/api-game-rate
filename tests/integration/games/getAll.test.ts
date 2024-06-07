@@ -1,9 +1,13 @@
 import { testServer } from "../testServer.js";
-import { getToken, insertUser, insertGameData } from "../testSetup.js";
+import { getToken, insertUser, insertGameData } from "../../testSetup.js";
+import connection from "../../../src/server/database/connection.js";
 
 beforeAll(async () => insertUser());
 
-beforeEach(async () => insertGameData());
+beforeEach(async () => {
+    await connection.query("DELETE FROM game");
+    await insertGameData();
+});
 
 describe("game retrieval - all", () => {
     const accessToken = getToken();

@@ -1,5 +1,5 @@
 import { testServer } from "../testServer.js";
-import { insertUser, testUser } from "../testSetup.js";
+import { insertUser, testUser } from "../../testSetup.js";
 
 beforeAll(async () => insertUser());
 
