@@ -10,7 +10,7 @@ const testUser = {
     username: "tester",
 } as User;
 
-const insertUser = async () => userService.create(testUser);
+const insertUser = () => userService.create(testUser);
 
 const insertGameData = async () => {
     const repository = connection.getRepository(Game);
@@ -26,7 +26,7 @@ const insertGameData = async () => {
     game3.id = 3;
     game3.name = "Wonder Game";
 
-    await repository.save([game1, game2, game3]);
+    return repository.save([game1, game2, game3]);
 };
 
 const insertUserData = async () => {
@@ -51,47 +51,14 @@ const insertUserData = async () => {
     user3.email = "karin@mail.com";
     user3.password = "00110011";
 
-    await repository.save([user1, user2, user3]);
+    return repository.save([user1, user2, user3]);
 };
 
 const insertRatingData = async () => {
     const ratingRepository = connection.getRepository(Rating);
-    const gameRepository = connection.getRepository(Game);
-    const userRepository = connection.getRepository(User);
 
-    const game1 = new Game();
-    game1.id = 1;
-    game1.name = "First Game";
-
-    const game2 = new Game();
-    game2.id = 2;
-    game2.name = "Second Game";
-
-    const game3 = new Game();
-    game3.id = 3;
-    game3.name = "Third Game";
-
-    await gameRepository.save([game1, game2, game3]);
-
-    const user1 = new User();
-    user1.id = 1;
-    user1.username = "Alex";
-    user1.email = "alex@mail.com";
-    user1.password = "10001000";
-
-    const user2 = new User();
-    user2.id = 2;
-    user2.username = "Sarah";
-    user2.email = "sarah@mail.com";
-    user2.password = "00009999";
-
-    const user3 = new User();
-    user3.id = 3;
-    user3.username = "Karen";
-    user3.email = "karen@mail.com";
-    user3.password = "karen5050";
-
-    await userRepository.save([user1, user2, user3]);
+    const [game1, game2, game3] = await insertGameData();
+    const [user1, user2, user3] = await insertUserData();
 
     const rating1 = new Rating();
     const rating2 = new Rating();
