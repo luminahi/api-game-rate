@@ -30,8 +30,8 @@ const create = async (
         return Result.wrap(result);
     } catch (err: unknown) {
         if (err instanceof QueryFailedError) {
-            console.error(err.message);
-            return Result.asFailure(500, err.message);
+            // console.error(err.message);
+            return Result.asFailure(400, err.message);
         }
 
         return Result.asFailure(500, "internal error");
