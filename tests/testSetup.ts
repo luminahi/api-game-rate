@@ -37,9 +37,9 @@ const insertUserData = async () => {
     const user3 = new User();
 
     user1.id = 1;
-    user1.username = "lima alex";
-    user1.email = "alex@mail.com";
-    user1.password = "00001111";
+    user1.email = "test@mail.com";
+    user1.password = "10101010";
+    user1.username = "tester";
 
     user2.id = 2;
     user2.username = "sarah sousa";
