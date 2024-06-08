@@ -9,7 +9,7 @@ const server = express();
 server.use(express.json());
 
 server.use("/api/v1/games", accessControl, gameRouter);
-server.use("/api/v1/ratings", ratingRouter);
+server.use("/api/v1/ratings", accessControl, ratingRouter);
 server.use("/auth", userRouter);
 
 server.use("/", errorHandler);
