@@ -2,7 +2,7 @@ import { testServer } from "../testServer.js";
 import { getToken, insertUser, insertGameData } from "../../testSetup.js";
 import connection from "../../../src/server/database/connection.js";
 
-beforeAll(async () => insertUser());
+beforeAll(async () => await insertUser());
 
 beforeEach(async () => {
     await connection.query("DELETE FROM game");

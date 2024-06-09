@@ -20,6 +20,7 @@ const jestConfig: JestConfigWithTsJest = {
     setupFiles: ["./jest.setup.ts"],
     rootDir: "./tests/",
     cache: true,
+    maxWorkers: 8,
 };
 
 export default jestConfig;

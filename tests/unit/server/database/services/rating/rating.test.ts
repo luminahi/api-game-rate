@@ -1,6 +1,6 @@
 import { fail } from "assert";
 import { ratingService } from "../../../../../../src/server/database/services/rating/index.js";
-import { insertRatingData } from "../../../../../testSetup.js";
+import { insertRatingData, testUser } from "../../../../../testSetup.js";
 import connection from "../../../../../../src/server/database/connection.js";
 
 beforeEach(async () => {
@@ -48,13 +48,18 @@ describe("ratingService", () => {
         expect(rating.user.id).toBe(1);
     });
 
-    it("updates the rating of a existing entry", async () => {
-        const patchResult = await ratingService.patchById(2, 0);
+    it("patches the rating of a existing entry", async () => {
+        const patchResult = await ratingService.patchById(
+            1,
+            { ...testUser, id: 1 },
+            0
+        );
+
         const affected = patchResult.unwrap();
 
         if (!affected) fail();
 
-        const getResult = await ratingService.getById(2);
+        const getResult = await ratingService.getById(1);
         const rating = getResult.unwrap();
 
         if (!rating) fail();
@@ -91,7 +96,7 @@ describe("ratingService", () => {
 
     it("tries to update the rating of a non existing entry", async () => {
         const patchResult = await ratingService
-            .patchById(1, 2)
+            .patchById(1, testUser, 2)
             .catch(() => fail());
 
         expect(patchResult.unwrap).toThrow();

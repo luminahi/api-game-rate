@@ -1,7 +1,7 @@
 import { testServer } from "../testServer.js";
 import { insertUser, testUser } from "../../testSetup.js";
 
-beforeAll(async () => insertUser());
+beforeAll(async () => await insertUser());
 
 describe("sign in", () => {
     it("authenticate a registered user", async () => {
