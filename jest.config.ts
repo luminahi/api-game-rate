@@ -17,10 +17,11 @@ const jestConfig: JestConfigWithTsJest = {
             },
         ],
     },
-    setupFiles: ["./jest.setup.ts"],
+    globalSetup: "<rootDir>/jest.setup.ts",
     rootDir: "./tests/",
+    maxWorkers: "50%",
+    workerIdleMemoryLimit: "1M",
     cache: true,
-    maxWorkers: 8,
 };
 
 export default jestConfig;

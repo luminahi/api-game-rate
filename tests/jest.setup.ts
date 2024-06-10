@@ -1,3 +1,5 @@
 import { randomBytes } from "crypto";
 
-process.env.JWT_SECRET = randomBytes(32).toString("base64");
+export default function () {
+    process.env.JWT_SECRET = randomBytes(32).toString("base64");
+}
